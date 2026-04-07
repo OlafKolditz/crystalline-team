@@ -304,7 +304,7 @@ class CubicDomainWithFault:
         # Show the mesh
         gmsh.fltk.run()
     
-    def export_mesh(self, filename="cubic_domain_with_fault.msh", out_dir=""):
+    def export_mesh(self, filename="cubic_domain_with_fault.msh", out_dir="."):
         """Export the mesh to file."""
         # Export in MSH format (version 4.1)
         gmsh.write(filename)
@@ -328,7 +328,16 @@ class CubicDomainWithFault:
             vtu_names.append(vtu_name)
             pv.save_meshio(vtu_name, mesh)
         
-        
+            ot.cli().identifySubdomains(
+                "-m",
+                Path(out_dir, "domain.vtu"),
+                f"-o {out_dir}/",
+                "-f",
+                "-s 1e-6",
+                "--",
+                *vtu_names,
+        )
+
         ## Also export to VTK format for ParaView
         #vtk_filename = filename.replace('.msh', '.vtk')
         #gmsh.write(vtk_filename)
