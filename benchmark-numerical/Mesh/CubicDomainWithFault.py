@@ -261,8 +261,8 @@ class CubicDomainWithFault:
         gmsh.option.setNumber("Mesh.Smoothing", 100)
         
         # Set mesh size - use a reasonable size for all elements
-        gmsh.option.setNumber("Mesh.CharacteristicLengthMin", 0.3)
-        gmsh.option.setNumber("Mesh.CharacteristicLengthMax", 0.8)
+        gmsh.option.setNumber("Mesh.CharacteristicLengthMin", 0.2)
+        gmsh.option.setNumber("Mesh.CharacteristicLengthMax", 5)
         
         # Generate 3D mesh
         print("\nGenerating 3D mesh...")
@@ -304,7 +304,7 @@ class CubicDomainWithFault:
         # Show the mesh
         gmsh.fltk.run()
     
-    def export_mesh(self, filename="cubic_domain_with_fault.msh", out_dir=""):
+    def export_mesh(self, filename="cubic_domain_with_fault.msh", out_dir="."):
         """Export the mesh to file."""
         # Export in MSH format (version 4.1)
         gmsh.write(filename)
@@ -328,7 +328,16 @@ class CubicDomainWithFault:
             vtu_names.append(vtu_name)
             pv.save_meshio(vtu_name, mesh)
         
-        
+            ot.cli().identifySubdomains(
+                "-m",
+                Path(out_dir, "domain.vtu"),
+                f"-o {out_dir}/",
+                "-f",
+                "-s 1e-6",
+                "--",
+                *vtu_names,
+        )
+
         ## Also export to VTK format for ParaView
         #vtk_filename = filename.replace('.msh', '.vtk')
         #gmsh.write(vtk_filename)
@@ -371,11 +380,11 @@ class CubicDomainWithFault:
 
 def main():
     # Define domain parameters
-    wide = 10.0      # Width in x-direction (m)
-    height = 8.0     # Height in y-direction (m)  
-    thickness = 6.0  # Thickness in z-direction (m)
-    z_center = 0.0   # Z-coordinate of domain center (m)
-    aperture = 1.0   # Aperture (thickness) of fault subdomain (m)
+    wide = 50.0      # Width in x-direction (m)
+    height = 50.0     # Height in y-direction (m)
+    thickness = 50.0  # Thickness in z-direction (m)
+    z_center = -600   # Z-coordinate of domain center (m)
+    aperture = 0.5   # Aperture (thickness) of fault subdomain (m)
     
     # Create the cubic domain with fault
     domain = CubicDomainWithFault(wide, height, thickness, z_center, aperture)
