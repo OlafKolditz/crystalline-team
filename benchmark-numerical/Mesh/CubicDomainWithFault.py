@@ -304,14 +304,14 @@ class CubicDomainWithFault:
         # Show the mesh
         gmsh.fltk.run()
     
-    def export_mesh(self, filename="cubic_domain_with_fault.msh", out_dir="."):
+    def export_mesh(self, filename="cubic_domain_with_fault.msh", mesh_dir="."):
         """Export the mesh to file."""
-        # Export in MSH format (version 4.1)
-        gmsh.write(filename)
-        print(f"\nMesh exported to {filename}")
+        mesh_file_name = Path(mesh_dir, filename)
+        gmsh.write(str(mesh_file_name))
+        print(f"\nMesh exported to {mesh_file_name}")
         
         meshes = ot.meshes_from_gmsh(
-            filename=str(filename), reindex=True, log=False
+            filename=str(mesh_file_name), reindex=True, log=False
         )
 
         vtu_names = []
@@ -321,17 +321,17 @@ class CubicDomainWithFault:
             print(f"{name}: {mesh.n_cells} cells")
             if "physical_group_" in name:
                 vtu_name = Path(
-                    out_dir, f"{name.replace('physical_group_', '')}.vtu"
+                    mesh_dir, f"{name.replace('physical_group_', '')}.vtu"
                 )
             else:
-                vtu_name = Path(out_dir, f"{name}.vtu")
+                vtu_name = Path(mesh_dir, f"{name}.vtu")
             vtu_names.append(vtu_name)
             pv.save_meshio(vtu_name, mesh)
         
             ot.cli().identifySubdomains(
                 "-m",
-                Path(out_dir, "domain.vtu"),
-                f"-o {out_dir}/",
+                Path(mesh_dir, "domain.vtu"),
+                f"-o {mesh_dir}/",
                 "-f",
                 "-s 1e-6",
                 "--",
