@@ -34,7 +34,7 @@
                 <secondary_variable internal_name="epsilon" output_name="epsilon"/>
                 <secondary_variable internal_name="velocity" output_name="velocity"/>
             </secondary_variables>
-            <specific_body_force>0 0 0.0</specific_body_force>
+            <specific_body_force>0 0 -9.81</specific_body_force>
             <initial_stress type="total"> sigma0 </initial_stress>
             
         </process>
@@ -133,7 +133,7 @@
                         <property>
                             <name>density</name>
                             <type>Constant</type>
-                            <value>2750</value>
+                            <value>2600</value>
                         </property>
                     </properties>
                 </phase>
@@ -147,7 +147,7 @@
                 <property>
                     <name>porosity</name>
                     <type>Constant</type>
-                    <value>0.001</value>
+                    <value>0.1</value>
                 </property>
                 <property>
                     <name>permeability</name>
@@ -222,18 +222,18 @@
         <parameter>
             <name>E2</name>
             <type>Constant</type>
-            <value>83.9e9</value>
+            <value>8.0e9</value>
         </parameter>
         <parameter>
             <name>nu2</name>
             <type>Constant</type>
-            <value>0.21</value>
+            <value>0.25</value>
         </parameter>
         <parameter>
           <name>injectionFlowRate_Inlet</name>
           <type>Function</type>
             <expression>
-                ((t &lt; 1794.21 ? 4.99798e-08 :
+                1000* ((t &lt; 1794.21 ? 4.99798e-08 :
                   t &lt; 1909.81 ? 9.31177e-06 :
                   t &lt; 2079.81 ? 1.90107e-05 :
                   t &lt; 2160.01 ? 3.41504e-05 :
@@ -288,7 +288,6 @@
             <name>water_pressure</name>
             <type>Function</type>
             <expression>-1000*9.81*z</expression>
-            <!--expression>-1000*9.81*z</expression-->
         </parameter>
     </parameters>
     <process_variables>
@@ -299,18 +298,6 @@
             <initial_condition>water_pressure</initial_condition>
             <boundary_conditions>               
                 <boundary_condition>
-                    <mesh>Surface_left</mesh>
-                    <type>Dirichlet</type>
-                    <component>0</component>
-                    <parameter>water_pressure</parameter>
-                </boundary_condition>
-                <boundary_condition>
-                    <mesh>Surface_right</mesh>
-                    <type>Dirichlet</type>
-                    <component>0</component>
-                    <parameter>water_pressure</parameter>
-                </boundary_condition>
-                <boundary_condition>
                     <mesh>Surface_top</mesh>
                     <type>Dirichlet</type>
                     <component>0</component>
@@ -318,12 +305,6 @@
                 </boundary_condition>
                 <boundary_condition>
                     <mesh>Surface_bottom</mesh>
-                    <type>Dirichlet</type>
-                    <component>0</component>
-                    <parameter>water_pressure</parameter>
-                </boundary_condition>
-                <boundary_condition>
-                    <mesh>Surface_front</mesh>
                     <type>Dirichlet</type>
                     <component>0</component>
                     <parameter>water_pressure</parameter>
