@@ -102,7 +102,7 @@ mesh_dir.mkdir(parents=True, exist_ok=True)
 # | Young's modulus  | $8.0$ | GPa|
 # | Poisson'ratio  | $0.25$ | -|
 #
-# The injection well is represented as a vertical line starting from the fault center and ending at the top surface. The injection rate is given in the following figure:
+# The injection well is represented as a vertical line starting from the fault center and ending at the top surface. The injection rate is given in the figure blow.
 
 # %%
 def q_in(t):
@@ -358,7 +358,7 @@ fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(6, 4))
 ot.plot.line(
     extracted_ms,
     "time",
-    ot.variables.s,
+    ot.variables.stress,
     labels=labels,
     ax=ax,
     loc="upper left",
