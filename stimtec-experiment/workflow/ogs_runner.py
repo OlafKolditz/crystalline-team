@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from preprocessing import FlowRateSchedule, apply_preprocessing_to_project
 from workflow_paths import find_project_file, read_project_mesh_names, read_project_output_prefix
 
 
@@ -9,7 +10,7 @@ PROJECT_FILENAME = "STIMTEC_DFN.prj"
 PVD_FILENAME = "Stimtec_DFN.pvd"
 
 
-def run_ogs(project_file: Path, out_dir: Path) -> None:
+def run_ogs(project_file: Path, out_dir: Path, flow_rate_schedule: FlowRateSchedule | None = None) -> None:
     """Write the final project file and execute the OGS model."""
     import ogstools as ot
 
@@ -18,6 +19,9 @@ def run_ogs(project_file: Path, out_dir: Path) -> None:
         input_file=project_file,
         output_file=output_project_file,
     )
+    if flow_rate_schedule is not None:
+        q_in_expression = apply_preprocessing_to_project(project, flow_rate_schedule)
+        print(f"Synchronized q_in from preprocessing into {output_project_file.name}: {q_in_expression}")
     project.write_input()
     project.run_model(args=f"-o {out_dir} -m {out_dir}", logfile=out_dir / "run.log")
 
@@ -30,7 +34,12 @@ def _validate_project_meshes(project_file: Path, mesh_dir: Path) -> None:
         )
 
 
-def run_ogs_simulation(orig_dir: Path, out_dir: Path, project_file: Path | None = None) -> Path:
+def run_ogs_simulation(
+    orig_dir: Path,
+    out_dir: Path,
+    project_file: Path | None = None,
+    flow_rate_schedule: FlowRateSchedule | None = None,
+) -> Path:
     """Run the OGS simulation after meshing has prepared the workspace."""
     orig_dir = Path(orig_dir).resolve()
     out_dir = Path(out_dir).resolve()
@@ -44,7 +53,7 @@ def run_ogs_simulation(orig_dir: Path, out_dir: Path, project_file: Path | None 
 
     project_file = Path(project_file).resolve()
     _validate_project_meshes(project_file, out_dir)
-    run_ogs(project_file=project_file, out_dir=out_dir)
+    run_ogs(project_file=project_file, out_dir=out_dir, flow_rate_schedule=flow_rate_schedule)
 
     output_prefix = read_project_output_prefix(project_file) or Path(PVD_FILENAME).stem
 
