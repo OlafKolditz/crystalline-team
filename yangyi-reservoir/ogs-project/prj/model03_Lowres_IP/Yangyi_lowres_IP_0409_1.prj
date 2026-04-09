@@ -2,7 +2,7 @@
 <OpenGeoSysProject>
 
   <meshes>
-    <mesh>mixed_dimensional_all.vtu</mesh>
+    <mesh>reservoir_with_matid6.vtu</mesh>
     <mesh>north.vtu</mesh>
     <mesh>south.vtu</mesh>
     <mesh>east.vtu</mesh>
@@ -390,6 +390,49 @@
           </properties>
     </medium>
     
+	<medium id="6">
+      <phases>
+        <phase>
+          <type>AqueousLiquid</type>
+          <properties>
+
+            <property>
+              <name>density</name>
+              <type>Constant</type>
+              <value>1000</value>
+            </property>
+            <property>
+              <name>viscosity</name>
+              <type>Constant</type>
+              <value>1e-3</value>
+            </property>
+          </properties>
+        </phase>
+      </phases>
+          <properties>
+            <property>
+              <name>reference_temperature</name>
+              <type>Constant</type>
+              <value>293.15</value>
+            </property>  
+            <property>
+              <name>porosity</name>
+              <type>Constant</type>
+              <value>0.1</value>
+            </property>
+            <property>
+              <name>permeability</name>
+              <type>Constant</type>
+              <value>1e-12</value>
+            </property>
+            <property>
+              <name>storage</name>
+              <type>Constant</type>
+              <value>1e-10</value>
+            </property>
+          </properties>
+    </medium>
+	
   </media>
 
 <time_loop>
