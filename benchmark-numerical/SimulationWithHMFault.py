@@ -358,10 +358,11 @@ fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(6, 4))
 ot.plot.line(
     extracted_ms,
     "time",
-    ot.variables.stress,
+    ot.variables.s,
     labels=labels,
     ax=ax,
-    afigsize=(6, 4),
+    loc="upper left",
+    figsize=(6, 4),
     fontsize=11,
     linewidth=0.5,
 )

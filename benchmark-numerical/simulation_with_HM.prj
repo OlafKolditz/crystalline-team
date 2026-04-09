@@ -233,7 +233,7 @@
           <name>injectionFlowRate_Inlet</name>
           <type>Function</type>
             <expression>
-                1000* ((t &lt; 1794.21 ? 4.99798e-08 :
+               0.5* 1000* ((t &lt; 1794.21 ? 4.99798e-08 :
                   t &lt; 1909.81 ? 9.31177e-06 :
                   t &lt; 2079.81 ? 1.90107e-05 :
                   t &lt; 2160.01 ? 3.41504e-05 :
