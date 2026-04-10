@@ -21,8 +21,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import ogstools as ot
 import ogstools.variables as ov
-
 import pyvista as pv
+
 pv.set_jupyter_backend("static")  # no rotating/zooming in the notebook
 
 # Local
@@ -41,6 +41,8 @@ fig_dir.mkdir(parents=True, exist_ok=True)
 mesh_dir = Path(out_dir, "mesh")
 mesh_dir.mkdir(parents=True, exist_ok=True)
 
+ogs_path = "/home/wenqing/Code/ogs6/build/release-lis/bin"
+# ogs_path=None
 
 # %% [markdown]
 # #  Simulation liquid injection into rock fault 
@@ -102,7 +104,7 @@ mesh_dir.mkdir(parents=True, exist_ok=True)
 # | Young's modulus  | $8.0$ | GPa|
 # | Poisson'ratio  | $0.25$ | -|
 #
-# The injection well is represented as a vertical line starting from the fault center and ending at the top surface. The injection rate is given in the figure blow.
+# The injection well is represented as a vertical line starting from the fault center and ending at the top surface. The injection rate is given in the figure blow. Due to the symmetry of the problem, the injection rate is halved and then uniformly distributed along the injection well.
 
 # %%
 def q_in(t):
@@ -139,13 +141,23 @@ def q_in(t):
 
 t = np.linspace(0, 3000, 1000)
 
-q_total = q_in(t) * 1000
+rho_w = 1000.0
+q_total = q_in(t) * rho_w
 
-plt.rcParams["figure.figsize"] = [6, 4]
-plt.plot(t, q_total, color="C0")
-plt.ylabel(r"Injection rate / cm$^3$ t $^{-1}$")
-plt.xlabel("Time / s")
-plt.grid(True)
+l_injection_borehole = 25.0
+plt.rcParams["figure.figsize"] = [8, 4]
+fig, ax = plt.subplots(1, 2, figsize=(8, 4))
+ax[0].plot(t, q_total, color="C0")
+ax[0].set_ylabel(r"Injection rate / kg/s")
+ax[0].set_xlabel("Time / s")
+ax[0].set_title("Mass injection rate")
+ax[0].grid()
+ax[1].plot(t, q_total / l_injection_borehole / 2, color="C0")
+ax[1].set_ylabel(r"Neumann boundary conditon value / kg/(m$\cdot$s)")
+ax[1].set_xlabel("Time / s")
+ax[1].grid()
+fig.tight_layout()
+# plt.savefig(Path(fig_dir, "injection_rate.png"), dpi=320)
 plt.show()
 
 # %% [markdown]
@@ -233,18 +245,18 @@ finally:
 
 
 # %% [markdown]
-# ### 4. Simulation
+# ### 4. Simulation with HM process
 #
 
 # %%
 def run_project(
+    prj_file,
     output_prefix,
     out_dir,
     mesh_dir,
-    ogs_path="",
+    ogs_path=None,
     order=1,
 ):
-    prj_file = "simulation_with_HM.prj"
     prj_temp = f"{output_prefix}.prj"
     prj = ot.Project(
         input_file=prj_file,
@@ -269,19 +281,27 @@ def run_project(
     print(f"Output prefix is {output_prefix}")
 
     prj.run_model(
-        path=ogs_path, args=f"-o {out_dir} -m {mesh_dir}", logfile=out_dir / "run.log"
+        logfile=Path(out_dir, "log.txt"),
+        path=ogs_path,
+        args=f"-o {out_dir} -m {mesh_dir}",
     )
-
+    
     return Path(out_dir, f"{output_prefix}.pvd")
 
 
 # %%
 pvd = run_project(
+    "simulation_with_HM.prj",
     "simulation_with_HM",
     out_dir,
     mesh_dir,
-    ogs_path="/home/wenqing/Code/ogs6/build/release-lis/bin",
+    ogs_path=ogs_path,
 )
+
+# %% [markdown]
+# ### 5. Results
+#
+# The following figure shows the pressure profile along the injection well.
 
 # %%
 ms = ot.MeshSeries(pvd)
@@ -300,6 +320,9 @@ plt.xlabel("Distance for the fault center / m")
 plt.grid(True)
 plt.show()
 
+# %% [markdown]
+# The following figure shows the horizontal displacement profile along the injection well:
+
 # %%
 plt.rcParams["figure.figsize"] = [6, 4]
 plt.plot(x_prf, profile["displacement"][:, 0] * 1e3, color="C0")
@@ -307,6 +330,9 @@ plt.ylabel(r"Horizontal displament, $u_{x}$ / mm")
 plt.xlabel("Distance for the fault center / m")
 plt.grid(True)
 plt.show()
+
+# %% [markdown]
+# The following figure shows the horizontal stress profile along the injection well:
 
 # %%
 plt.rcParams["figure.figsize"] = [6, 4]
@@ -321,7 +347,12 @@ points = np.asarray([[0.0, 25.0, -300], [0.0, 25.0, -290]])
 
 labels = ["Fault center", "10 m away"]
 
-extracted_ms = ot.MeshSeries.extract_probe(ms, points)
+extracted_ms = ot.MeshSeries.probe(ms, points)
+
+# %% [markdown]
+# Now we examine the variable variations at the fault center, as well as at a position located at the injection well and another position 10 m away from the fault center.
+#
+# The following figure shows the pressure variations at the two specified positions.
 
 # %%
 fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(6, 4))
@@ -336,6 +367,9 @@ ot.plot.line(
     fontsize=11,
     linewidth=0.5,
 )
+
+# %% [markdown]
+# The following figure shows the displacement magnitude variations at the two specified positions.
 
 # %%
 fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(6, 4))
@@ -352,7 +386,10 @@ ot.plot.line(
     linewidth=0.5,
 )
 
-# %%
+# %% [markdown]
+# The following figure shows the stress norm variations at the two specified positions.
+
+# %% jupyter={"outputs_hidden": true}
 fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(6, 4))
 
 ot.plot.line(
@@ -367,6 +404,9 @@ ot.plot.line(
     linewidth=0.5,
 )
 
+# %% [markdown]
+# The following two figures show the distribution of pressure and stress across the entire domain.
+
 # %%
 pl = ot.plot.contourf_pv(
     ms[-1],
@@ -380,3 +420,68 @@ pl = ot.plot.contourf_pv(
     ot.variables.stress,
 )
 pl.show()
+
+# %% [markdown]
+# ### 6. Simulation with H process
+#
+
+# %%
+pvd_H = run_project(
+    "simulation_with_H.prj",
+    "simulation_with_H",
+    out_dir,
+    mesh_dir,
+    ogs_path=ogs_path,
+)
+
+# %%
+ms_h = ot.MeshSeries(pvd_H)
+
+profile_h = ms_h[-1].sample_over_line(point_a, point_b, resolution=55)
+x_prf = profile["Distance"]
+
+# %%
+plt.rcParams["figure.figsize"] = [6, 4]
+plt.plot(x_prf, profile["pressure"] * 1e-6, color="C0", label="HM")
+plt.plot(x_prf, profile_h["pressure"] * 1e-6, color="C1", label="H")
+plt.ylabel(r"Pore pressure / MPa")
+plt.xlabel("Distance for the fault center / m")
+plt.grid(True)
+plt.legend()
+plt.savefig(Path(fig_dir, "p_profile_cmp.png"), dpi=320)
+plt.show()
+
+# %%
+labels_hm = ["Fault center (HM)", "10 m away (HM)"]
+labels_h = ["Fault center (H)", "10 m away (H)"]
+
+extracted_ms_H = ot.MeshSeries.probe(ms_h, points)
+
+# %%
+fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(6, 4))
+ot.plot.line(
+    extracted_ms,
+    "time",
+    ot.variables.pressure,
+    labels=labels_hm,
+    ax=ax,
+    loc="upper left",
+    figsize=(6, 4),
+    fontsize=11,
+    linewidth=0.5,
+)
+ot.plot.line(
+    extracted_ms_H,
+    "time",
+    ot.variables.pressure,
+    labels=labels_h,
+    ax=ax,
+    loc="upper left",
+    linestyle="dashed",
+    figsize=(6, 4),
+    fontsize=11,
+    linewidth=0.5,
+)
+plt.savefig(Path(fig_dir, "p_t_cmp.png"), dpi=320)
+
+# %%
