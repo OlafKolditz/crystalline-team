@@ -310,7 +310,7 @@ class CubicDomainWithFault:
         gmsh.write(str(mesh_file_name))
         print(f"\nMesh exported to {mesh_file_name}")
         
-        meshes = ot.meshes_from_gmsh(
+        meshes = ot.Meshes.from_gmsh(
             filename=str(mesh_file_name), reindex=True, log=False
         )
 
