@@ -32,12 +32,12 @@
 # %%
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 import numpy as np
 
 from meshing import run_meshing
 from ogs_runner import run_ogs_simulation
 from postprocessing import run_postprocessing
+from preprocessing import FlowRateSchedule, run_preprocessing
 from workflow_paths import (
     find_any_pvd_file,
     find_borehole_seed_file,
@@ -67,59 +67,21 @@ OUTPUT_DIR = None
 BOREHOLE_LENGTH = 55.6
 FLOW_TIMES = np.array([1794.21, 1909.81, 2079.81, 2160.01, 2330.81, 2430.41, 2517.81, 2669.81], dtype=float)
 FLOW_VALUES = np.array([4.99798e-08, 9.31177e-06, 1.90107e-05, 3.41504e-05, 6.76590e-05, 1.01353e-04, 1.33182e-04, 2.52185e-07], dtype=float)
+PREPROCESSING_TIME_MAX = 3000.0
 
-
-def flow_rate_total(time_values):
-    time_values = np.asarray(time_values, dtype=float)
-    conditions = [
-        time_values < FLOW_TIMES[0],
-        time_values < FLOW_TIMES[1],
-        time_values < FLOW_TIMES[2],
-        time_values < FLOW_TIMES[3],
-        time_values < FLOW_TIMES[4],
-        time_values < FLOW_TIMES[5],
-        time_values < FLOW_TIMES[6],
-        time_values < FLOW_TIMES[7],
-    ]
-    return np.select(conditions, FLOW_VALUES, default=0.0)
-
-
-def input_flux(time_values):
-    return flow_rate_total(time_values) / BOREHOLE_LENGTH
-
-
-def plot_input_flux_data() -> None:
-    time_values = np.linspace(0.0, 3000.0, 1000)
-    total_flow = flow_rate_total(time_values)
-    flux = input_flux(time_values)
-
-    fig, axes = plt.subplots(1, 2, figsize=(12, 5), sharex=True)
-
-    axes[0].step(time_values, total_flow, where="post", linewidth=2.0)
-    axes[0].set_title("Total Flow Rate")
-    axes[0].set_xlabel("Time [s]")
-    axes[0].set_ylabel("Flow rate [m^3/s]")
-
-    axes[1].step(time_values, flux, where="post", linewidth=2.0)
-    axes[1].set_title("Input Flux For OGS")
-    axes[1].set_xlabel("Time [s]")
-    axes[1].set_ylabel("Flux [m^2/s]")
-
-    for axis in axes:
-        axis.grid(True, linestyle="--", alpha=0.35)
-        axis.set_xlim(0.0, 3000.0)
-        axis.ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
-
-    fig.tight_layout()
-    plt.show()
-    plt.close(fig)
+FLOW_RATE_SCHEDULE = FlowRateSchedule(
+    borehole_length=BOREHOLE_LENGTH,
+    flow_times=FLOW_TIMES,
+    flow_values=FLOW_VALUES,
+    time_max=PREPROCESSING_TIME_MAX,
+)
 
 
 # %% [markdown]
 # ### Preprocessing: Input Flux Plot
 
 # %%
-plot_input_flux_data()
+run_preprocessing(FLOW_RATE_SCHEDULE)
 
 
 # %% [markdown]
@@ -173,6 +135,7 @@ else:
         orig_dir=input_dir,
         out_dir=run_out_dir,
         project_file=project_file,
+        flow_rate_schedule=FLOW_RATE_SCHEDULE,
     )
 
 if pvd_file is not None:
