@@ -383,7 +383,7 @@ def main():
     wide = 50.0      # Width in x-direction (m)
     height = 50.0     # Height in y-direction (m)
     thickness = 50.0  # Thickness in z-direction (m)
-    z_center = -600   # Z-coordinate of domain center (m)
+    z_center = -300   # Z-coordinate of domain center (m)
     aperture = 0.5   # Aperture (thickness) of fault subdomain (m)
     
     # Create the cubic domain with fault
