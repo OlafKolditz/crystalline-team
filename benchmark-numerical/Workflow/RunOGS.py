@@ -82,14 +82,14 @@ if __name__ == "__main__":
         "--mesh",
         default=None,
         help="Path to the mesh file or directory. "
-             "If it not given, the default mesh path is ../Mesh"
+             "If it is not given, the default mesh path is ../Mesh"
     )
     parser.add_argument(
         "-o",
         "--output",
         default=None,
         help="Path to the output directory. "
-             " If it not given, the default mesh path is ./_out"
+             " If it is not given, the default mesh path is ./_out"
     )
 
     args = parser.parse_args()
