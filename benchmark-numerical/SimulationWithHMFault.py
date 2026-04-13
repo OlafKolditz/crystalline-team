@@ -7,9 +7,9 @@
 #       format_version: '1.3'
 #       jupytext_version: 1.19.1
 #   kernelspec:
-#     display_name: Python 3 (ipykernel)
+#     display_name: Python (.venv)
 #     language: python
-#     name: python3
+#     name: venv
 # ---
 
 # %%
@@ -41,8 +41,9 @@ fig_dir.mkdir(parents=True, exist_ok=True)
 mesh_dir = Path(out_dir, "mesh")
 mesh_dir.mkdir(parents=True, exist_ok=True)
 
-ogs_path = "/home/wenqing/Code/ogs6/build/release-lis/bin"
-# ogs_path=None
+#ogs_path = "/home/wenqing/Code/ogs6/build/release-lis/bin"
+ogs_path=None
+
 
 # %% [markdown]
 # #  Simulation liquid injection into rock fault 
@@ -150,14 +151,14 @@ fig, ax = plt.subplots(1, 2, figsize=(8, 4))
 ax[0].plot(t, q_total, color="C0")
 ax[0].set_ylabel(r"Injection rate / kg/s")
 ax[0].set_xlabel("Time / s")
-ax[0].set_title("Mass injection rate")
+#ax[0].set_title("Mass injection rate")
 ax[0].grid()
 ax[1].plot(t, q_total / l_injection_borehole / 2, color="C0")
 ax[1].set_ylabel(r"Neumann boundary conditon value / kg/(m$\cdot$s)")
 ax[1].set_xlabel("Time / s")
 ax[1].grid()
 fig.tight_layout()
-# plt.savefig(Path(fig_dir, "injection_rate.png"), dpi=320)
+#plt.savefig(Path(fig_dir, "injection_rate.png"), dpi=320)
 plt.show()
 
 # %% [markdown]
@@ -389,7 +390,7 @@ ot.plot.line(
 # %% [markdown]
 # The following figure shows the stress norm variations at the two specified positions.
 
-# %% jupyter={"outputs_hidden": true}
+# %%
 fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(6, 4))
 
 ot.plot.line(
