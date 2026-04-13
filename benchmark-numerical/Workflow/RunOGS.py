@@ -74,7 +74,7 @@ if __name__ == "__main__":
         "-e",
         "--ogs_path",
         default=None,
-        help="Path to the OGS executable file. If it not given, "
+        help="Path to the OGS executable file. If it is not given, "
              "the default path in the environment is taken."
     )
     parser.add_argument(
