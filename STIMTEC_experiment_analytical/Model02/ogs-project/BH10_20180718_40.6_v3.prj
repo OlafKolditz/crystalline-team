@@ -1,0 +1,277 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<OpenGeoSysProject>
+    <meshes>
+        <mesh axially_symmetric="true">combined_fracture_mesh.vtu</mesh>
+        <mesh axially_symmetric="true">rectangle_bottom.vtu</mesh>
+        <mesh axially_symmetric="true">rectangle_top.vtu</mesh>
+        <mesh axially_symmetric="true">rectangle_well.vtu</mesh>
+        <mesh axially_symmetric="true">rectangle_boundary_R.vtu</mesh>
+        <mesh axially_symmetric="true">rectangle_fracture.vtu</mesh>
+        <mesh axially_symmetric="true">rectangle_intersection_point.vtu</mesh>
+
+    </meshes>
+    <processes>
+        <process>
+            <name>LiquidFlow</name>
+            <type>LIQUID_FLOW</type>
+            <integration_order>2</integration_order>
+            <specific_body_force>0 0</specific_body_force>
+            <process_variables>
+                <process_variable>pressure</process_variable>
+            </process_variables>
+            <secondary_variables>
+                <secondary_variable internal_name="darcy_velocity" output_name="velocity"/>
+            </secondary_variables>
+            <equation_balance_type>volume</equation_balance_type>
+            <aperture_size>
+                <parameter>fracture_thickness</parameter>
+            </aperture_size>
+
+        </process>
+    </processes>
+    <media>
+        <medium id="0">
+            <phases>
+                <phase>
+                    <type>AqueousLiquid</type>
+                    <properties>
+                        <property>
+                            <name>density</name>
+                            <type>Constant</type>
+                            <value>1000</value>
+                        </property>
+                        <property>
+                            <name>viscosity</name>
+                            <type>Constant</type>
+                            <value>0.001</value>
+                        </property>
+                    </properties>
+                </phase>
+            </phases>
+            <properties>
+                <property>
+                    <name>porosity</name>
+                    <type>Constant</type>
+                    <value>0.03</value>
+                </property>
+                <property>
+                    <name>permeability</name>
+                    <type>Constant</type>
+                    <value>5.14e-17</value>
+                    <!-- <value>8e-15</value> -->
+                </property>
+                <property>
+                    <name>reference_temperature</name>
+                    <type>Constant</type>
+                    <value>293.15</value>
+                </property>
+                <property>
+                    <name>storage</name>
+                    <type>Constant</type>
+                    <value>9.18e-11</value>
+                </property>
+            </properties>
+        </medium>
+        <medium id="1">
+            <phases>
+                <phase>
+                    <type>AqueousLiquid</type>
+                    <properties>
+                        <property>
+                            <name>density</name>
+                            <type>Constant</type>
+                            <value>1000</value>
+                        </property>
+                        <property>
+                            <name>viscosity</name>
+                            <type>Constant</type>
+                            <value>0.001</value>
+                        </property>
+                    </properties>
+                </phase>
+            </phases>
+            <properties>
+                <property>
+                    <name>porosity</name>
+                    <type>Constant</type>
+                    <value>1</value>
+                </property>
+                <property>
+                    <name>permeability</name>
+                    <type>Constant</type>
+                    <value>8.33e-11</value>
+                </property>
+                <property>
+                    <name>reference_temperature</name>
+                    <type>Constant</type>
+                    <value>293.15</value>
+                </property>
+                <property>
+                    <name>storage</name>
+                    <type>Constant</type>
+                    <value>4.5e-10</value>
+                </property>
+            </properties>
+        </medium>
+    </media>
+    <time_loop>
+        <processes>
+            <process ref="LiquidFlow">
+                <nonlinear_solver>basic_picard</nonlinear_solver>
+                <convergence_criterion>
+                    <type>DeltaX</type>
+                    <norm_type>NORM2</norm_type>
+                    <abstol>1.e-7</abstol>
+                    <reltol>1.e-9</reltol> 
+                </convergence_criterion>
+                <time_discretization>
+                    <type>BackwardEuler</type>
+                </time_discretization>
+                <time_stepping>
+                    <type>IterationNumberBasedTimeStepping</type>
+                    <t_initial>1750.009</t_initial>
+                    <t_end>2669.809</t_end>
+                    <initial_dt>0.1</initial_dt>
+                    <minimum_dt>1e-10</minimum_dt>
+                    <maximum_dt>10</maximum_dt>
+                    <number_iterations>1 3 5 8 10</number_iterations>
+                    <multiplier>1.5 1.2 1.0 0.8 0.5</multiplier>
+                </time_stepping>
+            </process>
+        </processes>
+        <output>
+            <type>VTK</type>
+            <prefix>BH10_20180718_40.6</prefix>
+            <timesteps>
+                <pair>
+                    <repeat>1</repeat>
+                    <each_steps>1</each_steps>
+                </pair>
+            </timesteps>
+            <variables>
+                <variable> pressure </variable>
+                <variable> velocity </variable>
+                <!-- <variable> OGS5_pressure </variable> -->
+            </variables>
+            <suffix>_ts_{:timestep}_t_{:time}</suffix>
+        </output>
+    </time_loop>
+    <parameters>
+
+
+        <parameter>
+        <name>fracture_thickness</name>
+        <type>Group</type>
+        <group_id_property>MaterialIDs</group_id_property>
+        <index_values>
+            <index>0</index>
+            <value>1.0</value>
+        </index_values>
+        <index_values>
+            <index>1</index>
+            <value>1e-4</value>
+        </index_values>
+        </parameter>
+
+        <parameter>
+            <name>p0</name>
+            <type>Constant</type>
+            <value>86316.0</value>
+        </parameter>
+        <parameter>
+            <name>p_tb</name>
+            <type>Constant</type>
+            <value>0</value>
+        </parameter>
+        <parameter>
+            <name>pi_bd</name>
+            <type>Constant</type>
+            <value>86316.0</value>
+        </parameter>
+        <parameter>
+            <name>constant_porosity_parameter</name>
+            <type>Constant</type>
+            <value>1</value>
+        </parameter>
+        <!-- <parameter>
+            <name>kappa1</name>
+            <type>Constant</type>
+            <value>1e-3</value>
+        </parameter> -->
+        <parameter>
+            <name>q_in</name>
+            <type>Function</type>
+            <expression>(t &lt; 1794.21 ? 8.74E-07 :
+           t &lt; 1909.81 ? 1.63E-04 :
+           t &lt; 2079.81 ? 3.32E-04 :
+           t &lt; 2160.01 ? 5.98E-04 :
+           t &lt; 2330.81 ? 1.18E-03 :
+           t &lt; 2430.41 ? 1.77E-03 :
+           t &lt; 2517.81 ? 2.33E-03 :
+           t &lt; 2669.81 ? 0 :
+           0)</expression>
+        </parameter>
+    </parameters>
+    <process_variables>
+        <process_variable>
+            <name>pressure</name>
+            <components>1</components>
+            <order>1</order>
+            <initial_condition>p0</initial_condition>
+
+            <source_terms>
+                <source_term>
+                    <mesh>rectangle_well</mesh>
+                    <type>Line</type>
+                    <parameter>q_in</parameter>
+                </source_term>
+            </source_terms>
+
+            <boundary_conditions>
+
+                <boundary_condition>
+                    <mesh>rectangle_bottom</mesh>
+                    <type>Neumann</type>
+                    <component>0</component>
+                    <parameter>p_tb</parameter>
+                </boundary_condition>
+                <boundary_condition>
+                    <mesh>rectangle_top</mesh>
+                    <type>Neumann</type>
+                    <component>0</component>
+                    <parameter>p_tb</parameter>
+                </boundary_condition>
+                <boundary_condition>
+                    <mesh>rectangle_boundary_R</mesh>
+                    <type>Dirichlet</type>
+                    <component>0</component>
+                    <parameter>pi_bd</parameter>
+                </boundary_condition>
+            </boundary_conditions>
+        </process_variable>
+    </process_variables>
+    <nonlinear_solvers>
+        <nonlinear_solver>
+            <name>basic_picard</name>
+            <type>Picard</type>
+            <max_iter>10</max_iter>
+            <linear_solver>general_linear_solver</linear_solver>
+        </nonlinear_solver>
+    </nonlinear_solvers>
+    <linear_solvers>
+        <linear_solver>
+            <name>general_linear_solver</name>
+            <lis>-i cg -p jacobi -tol 1e-20 -maxiter 10000</lis>
+            <eigen>
+                <solver_type>CG</solver_type>
+                <precon_type>DIAGONAL</precon_type>
+                <max_iteration_step>10000</max_iteration_step>
+                <error_tolerance>1e-20</error_tolerance>
+            </eigen>
+            <petsc>
+                <prefix>lf</prefix>
+                <parameters>-lf_ksp_type cg -lf_pc_type bjacobi -lf_ksp_rtol 1e-16 -lf_ksp_max_it 10000</parameters>
+            </petsc>
+        </linear_solver>
+    </linear_solvers>
+</OpenGeoSysProject>

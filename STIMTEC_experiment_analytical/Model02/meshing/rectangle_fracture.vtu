@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<VTKFile type="UnstructuredGrid" version="0.1" byte_order="LittleEndian" compressor="vtkZLibDataCompressor">
+<!--This file was created by meshio v5.3.5-->
+<UnstructuredGrid>
+<Piece NumberOfPoints="47" NumberOfCells="46">
+<Points>
+<DataArray type="Float64" Name="Points" NumberOfComponents="3" format="binary">
+AQAAAACAAABoBAAAvQEAAA==eJy7/bMua0/JYvuzZ4DAx+UAAwpQcEAXf7Q/f/dTltMY6pc+kNfzm3YDQ3zdB+f9IlcfYohzfCxPZ4p/jiGe/HE1/4cXbzDE7/54fzvP8iOGONdPzg2p/z5jiJv/VG6JOfwNQzzlp21EcMdPDPGpP8N1vHz/YIgf+lnI4Cj0H0P8xx/XV7NfM2CED8/foBBxPyYMcdW/8fsmbWDGELf+m6PBJ8yKIR70t3JSZykbhnja37Y/LDfYMcTr/05Oa7DixBCf/HfBhd9zuDDEl/9da1X+nxtDfPffXUs+JfJiiF/5e5wv7wgfhvhXUPIRFsAQ//+voHDTEUxxrvpytQ+lghjiIv9rb+uqC2GIy9e3TMi+gSmu9b/LdWWnMIa4Sf3EX8+sRDDE7f5PX6/yBlPcs35eStJcUQzxkP9LJBf4iWGIx9evPnf3P6Z49v+NzdIbxTHEK+p3WEQmSWCIt/zf93aasCSGeH/90UVXjmCKz/l/OlyoTApDfGX9JZ4AdWkM8W3/bxzsvYEpfrj+ftnpThkM8XP/n2pzWstiiN+qf/PA7Q2m+PP/n6a2zJXDEP9U/9PrkJ88hjgAx9qvrg==
+</DataArray>
+</Points>
+<Cells>
+<DataArray type="Int64" Name="connectivity" format="binary">
+AQAAAACAAADgAgAAYQAAAA==eJxdxUkCgQAAAMAIFVGWyFq2kOX/z3PgNHOZIPjpcsg97vOAI4454SGPOOUxTzjjnKc84zkvuOAlr7jkNW94yzve84ErrvnIJz7zha/c8I3v/OCWn/ziN3+48/8LkWAIcg==
+</DataArray>
+<DataArray type="Int64" Name="offsets" format="binary">
+AQAAAACAAABwAQAAZAAAAA==eJwtxdEGwgAAAMBMkkySSZLJTJJMkmQmk5kkSZLM/v87etjdywW9Tt8DDz1y6LEnnjryzHMvvHTslROnXnvjrXfOvPfBR598du7CF5e+unLtm+9++OmX3/74658bt/4DOqwIcw==
+</DataArray>
+<DataArray type="Int64" Name="types" format="binary">
+AQAAAACAAABwAQAAEAAAAA==eJxjZoAA5lGaLjQAZsgAiw==
+</DataArray>
+</Cells>
+<PointData>
+<DataArray type="UInt64" Name="bulk_node_ids" format="binary">
+AQAAAACAAAB4AQAAWwAAAA==eJwtxUkCgQAAAECHHJDIGtkrRPb6/9ccmrlM0Gl13XPfA4ceOvLIY8eeeOqZ51546cQrr51646133vvgo0/OnLvw2RdfXfrmuys//PTLb3/89c+1G/8BDC0FfQ==
+</DataArray>
+</PointData>
+<CellData>
+<DataArray type="UInt64" Name="number_bulk_elements" format="binary">
+AQAAAACAAABwAQAAEAAAAA==eJxjYoAAplGaLjQARQAAXQ==
+</DataArray>
+</CellData>
+</Piece>
+</UnstructuredGrid>
+</VTKFile>
