@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<VTKFile type="UnstructuredGrid" version="0.1" byte_order="LittleEndian">
+  <UnstructuredGrid>
+    <Piece NumberOfPoints="11" NumberOfCells="11">
+      <PointData>
+        <DataArray type="UInt64" Name="bulk_node_ids" format="ascii">
+          34705 10852 2405 2964 5852 5940 12464 1473 15017 20482 33486
+        </DataArray>
+        <DataArray type="Int32" Name="well_index" format="ascii">
+          0 1 2 2 3 3 4 4 5 5 6
+        </DataArray>
+        <DataArray type="Int32" Name="MaterialID" format="ascii">
+          12 3 4 10 9 12 5 3 7 12 0
+        </DataArray>
+        <DataArray type="Float64" Name="depth_m" format="ascii">
+          275.964435851 800.329559195 695.210404695 745.558491848 40.1110577596 236.833262398 486.549240184 585.084543986 287.388327491 493.450024618 164.708821404
+        </DataArray>
+      </PointData>
+      <Points>
+        <DataArray type="Float64" Name="Points" NumberOfComponents="3" format="ascii">
+          245387.341 3290785.995 4451.335369
+          246191 3290973 3818.570343
+          246040 3290780 3913.48979
+          246040 3290780 3863.141703
+          245382 3290608 4672.48904
+          245382 3290608 4475.766836
+          245834 3292373 4189.050858
+          245834 3292373 4090.515554
+          246190 3292591 4319.711771
+          246190 3292591 4113.650073
+          245448 3293040 4490.691179
+        </DataArray>
+      </Points>
+      <Cells>
+        <DataArray type="Int64" Name="connectivity" format="ascii">
+          0 1 2 3 4 5 6 7 8 9 10
+        </DataArray>
+        <DataArray type="Int64" Name="offsets" format="ascii">
+          1 2 3 4 5 6 7 8 9 10 11
+        </DataArray>
+        <DataArray type="UInt8" Name="types" format="ascii">
+          1 1 1 1 1 1 1 1 1 1 1
+        </DataArray>
+      </Cells>
+    </Piece>
+  </UnstructuredGrid>
+</VTKFile>
