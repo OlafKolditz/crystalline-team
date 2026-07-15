@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<OpenGeoSysProjectDiff base_file="left_right_gw_flow_base.prj">
+    <add sel="/*/meshes">
+        <mesh>source_term_mesh.vtu</mesh>
+    </add>
+    <add sel="/OpenGeoSysProject/parameters">
+        <parameter>
+            <name>source_term_parameter</name>
+            <type>Function</type>
+            <expression>-0.01 + 0.01*sin(2*pi*t/3456000)</expression>
+        </parameter>
+    </add>
+    <add sel="/*/process_variables/process_variable">
+            <source_terms>
+                <source_term>
+                    <mesh>source_term_mesh</mesh>
+                    <type>Volumetric</type>
+                    <parameter>source_term_parameter</parameter>
+                </source_term>
+            </source_terms>
+    </add>
+    <replace sel="/*/media/medium[1]/properties/property[1]/value/text()">1e-9</replace>
+</OpenGeoSysProjectDiff>
