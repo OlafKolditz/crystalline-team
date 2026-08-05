@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<OpenGeoSysProjectDiff base_file="left_right_gw_flow_base.prj">
+    <add sel="/*">
+        <python_script>python_scripts/BC/left_boundary_dirichlet_bc.py</python_script>
+    </add>
+
+    <remove msel="/*/process_variables/process_variable/boundary_conditions/boundary_condition[mesh='left']"/>
+
+    <add msel="/*/process_variables/process_variable/boundary_conditions">
+            <boundary_condition>
+                <mesh>left</mesh>
+                <type>Python</type>
+                <component>0</component>
+                <bc_object>left_boundary_dirichlet</bc_object>
+            </boundary_condition>
+    </add>
+</OpenGeoSysProjectDiff>
