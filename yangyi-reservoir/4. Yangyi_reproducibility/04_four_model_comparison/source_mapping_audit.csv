@@ -1,0 +1,12 @@
+model,source_mesh,bulk_node_id,coordinate_mismatch_m
+DFNM,ZK203_single_source_sink_bulk_node.vtu,29729,1.5578592682374875e-06
+DFNM,ZK208_single_source_sink_bulk_node.vtu,6821,2.3780146856236515e-06
+DFNM,ZK403_single_source_sink_bulk_node.vtu,11913,4.547885016382715e-06
+DFNM-LRZ,ZK203_single_source_sink_bulk_node.vtu,29729,1.5578592682374875e-06
+DFNM-LRZ,ZK208_single_source_sink_bulk_node.vtu,6821,2.3780146856236515e-06
+DFNM-LRZ,ZK403_single_source_sink_bulk_node.vtu,11913,4.547885016382715e-06
+DFN-LRZ,ZK203_single_source_sink_bulk_node.vtu,16826,1.5578592682374875e-06
+DFN-LRZ,ZK208_single_source_sink_bulk_node.vtu,6579,2.3780146856236515e-06
+DFN-LRZ,ZK403_single_source_sink_bulk_node.vtu,11671,4.547885016382715e-06
+DFN,ZK403_2d_source.vtu,11671,4.547885016382715e-06
+DFN,ZK208_2d_source.vtu,6579,2.3780146856236515e-06

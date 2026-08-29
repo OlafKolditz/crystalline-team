@@ -1,0 +1,2 @@
+well,recommended_type,MaterialID,grid_dim,x,y,z,depth_m,mesh_cell_index,cell_id,bulk_node_id,nearest_node_distance_m,note
+SC211,lowres_midpoint,12,3,245387.341,3290785.995,4451.335369149181,275.9644358508185,108880,109527,34705,52.8111819487636,representative midpoint of lowres interval 219.61-324.33 m

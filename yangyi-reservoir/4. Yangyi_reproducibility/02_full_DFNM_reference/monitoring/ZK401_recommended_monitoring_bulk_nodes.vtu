@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<VTKFile type="UnstructuredGrid" version="0.1" byte_order="LittleEndian">
+  <UnstructuredGrid>
+    <Piece NumberOfPoints="2" NumberOfCells="2">
+      <PointData>
+        <DataArray type="UInt64" Name="bulk_node_ids" format="ascii">
+          12464 1473
+        </DataArray>
+        <DataArray type="Int32" Name="well_index" format="ascii">
+          4 4
+        </DataArray>
+        <DataArray type="Int32" Name="MaterialID" format="ascii">
+          5 3
+        </DataArray>
+        <DataArray type="Float64" Name="depth_m" format="ascii">
+          486.549240184 585.084543986
+        </DataArray>
+      </PointData>
+      <Points>
+        <DataArray type="Float64" Name="Points" NumberOfComponents="3" format="ascii">
+          245834 3292373 4189.050858
+          245834 3292373 4090.515554
+        </DataArray>
+      </Points>
+      <Cells>
+        <DataArray type="Int64" Name="connectivity" format="ascii">
+          0 1
+        </DataArray>
+        <DataArray type="Int64" Name="offsets" format="ascii">
+          1 2
+        </DataArray>
+        <DataArray type="UInt8" Name="types" format="ascii">
+          1 1
+        </DataArray>
+      </Cells>
+    </Piece>
+  </UnstructuredGrid>
+</VTKFile>

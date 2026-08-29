@@ -1,0 +1,2 @@
+well,recommended_type,MaterialID,grid_dim,x,y,z,depth_m,mesh_cell_index,cell_id,bulk_node_id,nearest_node_distance_m,note
+ZK501,bedrock_midpoint,0,3,245448.0,3293040.0,4490.691178595968,164.70882140403137,77469,78116,33486,27.362983979620342,bedrock/matrix representative point near middle of ZK501 drilled interval; bedrock interval approximately 0.00-317.90 m

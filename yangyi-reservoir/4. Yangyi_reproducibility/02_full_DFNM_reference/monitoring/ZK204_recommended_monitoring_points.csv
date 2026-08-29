@@ -1,0 +1,2 @@
+well,recommended_type,MaterialID,grid_dim,x,y,z,depth_m,mesh_cell_index,cell_id,bulk_node_id,nearest_node_distance_m,note
+ZK204,exact_fault,3,2,246191.0,3290973.0,3818.570342805264,800.3295591947376,20188,20835,10852,22.01185760943396,strict well-fault intersection

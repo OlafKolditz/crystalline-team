@@ -1,0 +1,4 @@
+well,role,selection,target_type,MaterialID,depth_m,bulk_node_id,note
+ZK203,production,lowres_interval_mid_cell,lowres_3D_tetra,12,228.782409,29729,ZK203 has no exact fault intersection; selected the low-res interval central cell as one production source/sink point.
+ZK208,production,nearest_fault_fallback,nearest_fault_2D_triangle,1,312.38599,6821,No exact geometric intersection; selected the closest fault triangle to the well line.
+ZK403,injection,exact_fault_intersection,fault_2D_triangle,5,702.274118,11913,"Selected the exact deeper fault intersection rather than the shallow low-res interval, because it is more suitable as a single fracture-controlled injection point."

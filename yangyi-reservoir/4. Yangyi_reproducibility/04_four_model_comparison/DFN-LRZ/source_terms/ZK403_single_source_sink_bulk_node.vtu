@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<VTKFile type="UnstructuredGrid" version="1.0" byte_order="LittleEndian" header_type="UInt64">
+  <UnstructuredGrid>
+    <FieldData>
+      <DataArray type="UInt64" Name="bulk_element_ids" NumberOfTuples="6" format="appended" RangeMin="21422"                RangeMax="21954"                offset="0"                   />
+    </FieldData>
+    <Piece NumberOfPoints="1"                    NumberOfCells="1"                   >
+      <PointData>
+        <DataArray type="Int32" Name="MaterialID" format="appended" RangeMin="5"                    RangeMax="5"                    offset="76"                  />
+        <DataArray type="UInt64" Name="bulk_node_ids" format="appended" RangeMin="11671"                RangeMax="11671"                offset="92"                  />
+        <DataArray type="Int32" Name="cell_id" format="appended" RangeMin="22601"                RangeMax="22601"                offset="116"                 />
+        <DataArray type="Float64" Name="depth_m" format="appended" RangeMin="702.274118"           RangeMax="702.274118"           offset="132"                 />
+        <DataArray type="Float64" Name="distance_to_well_m" format="appended" RangeMin="0"                    RangeMax="0"                    offset="156"                 />
+        <DataArray type="Int32" Name="role_sign" format="appended" RangeMin="-1"                   RangeMax="-1"                   offset="180"                 />
+        <DataArray type="Int32" Name="well_id" format="appended" RangeMin="203"                  RangeMax="203"                  offset="196"                 />
+      </PointData>
+      <CellData>
+        <DataArray type="Int32" Name="MaterialIDs" format="appended" RangeMin="5"                    RangeMax="5"                    offset="212"                 />
+        <DataArray type="UInt64" Name="number_bulk_elements" format="appended" RangeMin="6"                    RangeMax="6"                    offset="228"                 />
+      </CellData>
+      <Points>
+        <DataArray type="Float64" Name="Points" NumberOfComponents="3" format="appended" RangeMin="3301425.7131"         RangeMax="3301425.7131"         offset="252"                 />
+      </Points>
+      <Cells>
+        <DataArray type="Int64" Name="connectivity" format="appended" RangeMin=""                     RangeMax=""                     offset="296"                 />
+        <DataArray type="Int64" Name="offsets" format="appended" RangeMin=""                     RangeMax=""                     offset="320"                 />
+        <DataArray type="UInt8" Name="types" format="appended" RangeMin=""                     RangeMax=""                     offset="344"                 />
+      </Cells>
+    </Piece>
+  </UnstructuredGrid>
+  <AppendedData encoding="base64">
+   _MAAAAAAAAADCVQAAAAAAACxVAAAAAAAAD1UAAAAAAAD+UwAAAAAAANVTAAAAAAAArlMAAAAAAAA=BAAAAAAAAAAFAAAACAAAAAAAAACXLQAAAAAAAA==BAAAAAAAAABJWAAACAAAAAAAAAD2KcdkMfKFQA==CAAAAAAAAAAAAAAAAAAAAA==BAAAAAAAAAD/////BAAAAAAAAADLAAAABAAAAAAAAAAFAAAACAAAAAAAAAAGAAAAAAAAAA==GAAAAAAAAADaHOf25foNQXuIRrs5HklBmyJdv+p+r0A=CAAAAAAAAAAAAAAAAAAAAA==CAAAAAAAAAABAAAAAAAAAA==AQAAAAAAAAAB
+  </AppendedData>
+</VTKFile>
